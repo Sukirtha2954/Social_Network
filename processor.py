@@ -19,29 +19,49 @@ try:
     print(f"Number of nodes: {G.number_of_nodes()}")
     print(f"Number of edges: {G.number_of_edges()}")
 
+    # Calculate degree centrality
     degree = nx.degree_centrality(G)
     with open("degree.json", "w") as f:
         json.dump(dict(degree), f, indent=2)
-
     print("Degree done")
 
-    eigen = nx.eigenvector_centrality(G)
+    # Calculate eigenvector centrality with increased max_iter
+
+    eigen = nx.eigenvector_centrality_numpy(G, max_iter=2000)
     with open("eigen.json", "w") as f:
         json.dump(dict(eigen), f, indent=2)
-    
     print("Eigen done")
 
-    katz = nx.katz_centrality(G)
+
+    # Calculate katz centrality
+    katz = nx.katz_centrality_numpy(G)
     with open("katz.json", "w") as f:
         json.dump(dict(katz), f, indent=2)
-    
     print("Katz done")
 
+    # Calculate pagerank
     pagerank = nx.pagerank(G)
     with open("pagerank.json", "w") as f:
         json.dump(dict(pagerank), f, indent=2)
-
     print("Pagerank done")
+
+    # Calculate betweenness centrality
+    betweenness = nx.betweenness_centrality(G)
+    with open("betweenness.json", "w") as f:
+        json.dump(dict(betweenness), f, indent=2)
+    print("Betweenness done")
+
+    # Calculate closeness centrality
+    closeness = nx.closeness_centrality(G)
+    with open("closeness.json", "w") as f:
+        json.dump(dict(closeness), f, indent=2)
+    print("Closeness done")
+
+    # Calculate local clustering coefficient
+    clustering = nx.clustering(G)
+    with open("clustering.json", "w") as f:
+        json.dump(dict(clustering), f, indent=2)
+    print("Clustering done")
 
 except FileNotFoundError:
     print("Error: network.txt file not found")
